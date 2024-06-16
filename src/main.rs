@@ -82,7 +82,9 @@ impl<'a> EtherCATDatagram<'a> {
             next_datagram_offset += datagram.size();
 
             //datagrams.push(datagram);
-            println!("{:x?},{:x?},{}",dst_mac, src_mac, datagram);
+            let dst_mac_str = format!("{:x} {:x} {:x} {:x} {:x} {:x}", dst_mac[0], dst_mac[1], dst_mac[2], dst_mac[3], dst_mac[4], dst_mac[5]);
+            let src_mac_str = format!("{:x} {:x} {:x} {:x} {:x} {:x}", src_mac[0], src_mac[1], src_mac[2], src_mac[3], src_mac[4], src_mac[5]);
+            println!("{},{},{}",dst_mac_str, src_mac_str, datagram);
 
             if is_last_datagram {
                 break;
@@ -242,6 +244,8 @@ fn main(){
             None => None,
         }
     }
+
+    println!("dst_mac,src_mac,cmd,index,adp,ado,length,round_trip,last_ind,irq,wkc,data");
 
     loop {
         match reader.next() {
